@@ -38,6 +38,21 @@
       line-height: 1.6;
       font-size: 1rem;
     }
+
+    .share-button {
+      margin: 10px 0;
+      padding: 10px 20px;
+      background-color: #1e90ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .share-button:hover {
+      background-color: #0c70d4;
+    }
   </style>
 </head>
 <body>
@@ -45,6 +60,8 @@
   <div class="player-container">
     <div id="player"></div>
   </div>
+
+  <button class="share-button" onclick="startScreenShare()">Поделиться экраном</button>
 
   <div class="description">
     <strong>Описание фильма:</strong> Действие фильма разворачивается в 1916 году. В центре сюжета оказывается отважная исследовательница дикой природы Лили Хоутон, которая крадет древний наконечник стрелы из элитного британского клуба. С помощью артефакта героиня планирует добраться до загадочного места на Амазонке, где на древнем дереве распускаются легендарные целебные цветы, способные открыть новую веху в истории медицины. Вместе с братом Макгрегором Лили отправляется в Южную Америку, где встречает нахального шкипера Фрэнка Вулфа, который берется помочь им в нелегком деле.
@@ -57,6 +74,20 @@
       file: "https://pixeldrain.com/u/wxTC1ebw",
       poster: "https://i.postimg.cc/x16qf52g/image.jpg"
     });
+
+    async function startScreenShare() {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.style.maxWidth = "960px";
+        video.style.marginTop = "20px";
+        document.body.appendChild(video);
+      } catch (err) {
+        alert("Не удалось начать захват экрана: " + err.message);
+      }
+    }
   </script>
 
 </body>
